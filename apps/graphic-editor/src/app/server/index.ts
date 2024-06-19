@@ -14,6 +14,7 @@ server.use((req, res, next) => {
   res.locals.layoutData = {
     html: {
       is_mobile: res.locals.is_mobile,
+      class: 'graphic-editor',
     },
     head: {
       title: 'Hello World',

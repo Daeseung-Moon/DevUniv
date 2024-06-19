@@ -1,0 +1,93 @@
+html.graphic-editor {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  [data-rune] * {
+    box-sizing: content-box;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: white;
+    font-size: 18px;
+  }
+
+  #body {
+    display: contents;
+  }
+
+  .GraphicEditor {
+    display: flex;
+    gap: 64px;
+    margin: auto;
+  }
+
+  .RendererView {
+    position: relative;
+    width: 800px;
+    height: 800px;
+    border: 1px solid #999;
+  }
+
+  .SidebarView {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 400px;
+    height: 800px;
+    border: 1px solid #999;
+
+    fieldset {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+    }
+
+    .label {
+      display: inline-flex;
+      width: 100px;
+    }
+
+    .input[type='text'],
+    .input[type='number'] {
+      display: inline;
+      width: 200px;
+      padding: 4px 8px;
+      border: 1px solid #999;
+      border-radius: 4px;
+      color: white;
+
+      ::placeholder {
+        color: #999;
+      }
+    }
+
+    button.submit {
+      padding: 4px 8px;
+      border: 1px solid #999;
+      border-radius: 4px;
+    }
+  }
+
+  .ItemCreateMenuView {
+    display: flex;
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    padding: 8px;
+    border: 1px solid #999;
+    list-style: none;
+    gap: 4px;
+  }
+}

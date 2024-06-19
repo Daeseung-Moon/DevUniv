@@ -1,2 +1,2 @@
-export * from './Renderer';
-export * from './Settings';
+export * from './RendererView';
+export * from './SidebarView';
