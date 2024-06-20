@@ -7,6 +7,7 @@ interface ParagraphData {
   fontSize: number;
   fontWeight: string;
   color: string;
+  fontFamily: string; // 폰트 패밀리 속성 추가
 }
 
 export class Paragraph extends Item<ParagraphData> {
@@ -15,8 +16,9 @@ export class Paragraph extends Item<ParagraphData> {
     fontSize = 24,
     fontWeight = 'normal',
     text = '하이요',
+    fontFamily = 'Arial',
   }: Partial<ParagraphData> = {}) {
-    super({ text, fontSize, fontWeight, color });
+    super({ text, fontSize, fontWeight, color, fontFamily });
   }
 
   override build(data: ParagraphData): Widget {
@@ -25,6 +27,7 @@ export class Paragraph extends Item<ParagraphData> {
         color: data.color,
         fontSize: data.fontSize,
         fontWeight: data.fontWeight,
+        fontFamily: data.fontFamily,
       }),
     });
   }
@@ -38,18 +41,12 @@ class ParagraphSettingView extends SettingView<ParagraphData> {
   protected override onRender(): void {
     this.element().addEventListener('submit', (e) => {
       e.preventDefault();
-      const textElement = this.element().querySelector('#text') as unknown as HTMLInputElement;
-      const fontSizeElement = this.element().querySelector(
-        '#fontSize',
-      ) as unknown as HTMLInputElement;
-      const fontWeightElement = this.element().querySelector(
-        '#fontWeight',
-      ) as unknown as HTMLInputElement;
-      const colorElement = this.element().querySelector('#color') as unknown as HTMLInputElement;
-      this.item.data.text = textElement.value;
-      this.item.data.fontSize = Number(fontSizeElement.value);
-      this.item.data.fontWeight = fontWeightElement.value;
-      this.item.data.color = colorElement.value;
+      const formData = new FormData(e.target as HTMLFormElement);
+      this.item.data.text = formData.get('text') as string;
+      this.item.data.fontSize = Number(formData.get('fontSize'));
+      this.item.data.fontWeight = formData.get('fontWeight') as string;
+      this.item.data.color = formData.get('color') as string;
+      this.item.data.fontFamily = formData.get('fontFamily') as string; // 폰트 패밀리 데이터 처리
       this.item.notify();
     });
   }
@@ -80,6 +77,17 @@ class ParagraphSettingView extends SettingView<ParagraphData> {
         <fieldset>
           <label for="color">Color</label>
           <input type="color" id="color" name="color" value="${this.item.data.color}" />
+        </fieldset>
+
+        <fieldset>
+          <label for="fontFamily">Font Family</label>
+          <select id="fontFamily" name="fontFamily">
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Courier New">Courier New</option>
+          </select>
         </fieldset>
 
         <button class="submit">Submit</button>
