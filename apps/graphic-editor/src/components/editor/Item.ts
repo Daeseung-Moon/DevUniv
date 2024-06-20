@@ -61,7 +61,6 @@ export class ItemState<DATA extends object = object> extends State<Item<DATA>> {
   }
 
   notify() {
-    console.log('notify', this.data);
     this.setState();
   }
 
@@ -70,7 +69,6 @@ export class ItemState<DATA extends object = object> extends State<Item<DATA>> {
   }
 
   override build() {
-    console.log('rebuild', this.data);
     return new Focusable({
       onFocus: () => {
         this.handleFocus();

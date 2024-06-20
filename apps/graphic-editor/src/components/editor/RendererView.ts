@@ -3,11 +3,12 @@ import {
   Widget,
   AppRunner,
   StatefulWidget,
-  Center,
   State,
   Row,
   MainAxisSize,
   Column,
+  Center,
+  CrossAxisAlignment,
 } from '@meursyphus/flitter';
 import { EventManager, getEventManager } from '../../libs/EventManager';
 import { CreateItemEvent, ItemCreateMenuView } from './ItemCreatorView';
@@ -61,10 +62,29 @@ class RendererState extends State<Renderer> {
 
   override build(): Widget {
     return Center({
-      child: Column({
-        mainAxisSize: MainAxisSize.min,
+      child: Masonry({
         children: this._items,
       }),
     });
   }
+}
+
+function Masonry({ col = 5, children }: { children: Widget[]; col?: number }) {
+  return Column({
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: children
+      .reduce((acc, child, index) => {
+        const columnIndex = Math.floor(index / col);
+        acc[columnIndex] = acc[columnIndex] || [];
+        acc[columnIndex].push(child);
+        return acc;
+      }, [] as Widget[][])
+      .map((group) =>
+        Row({
+          mainAxisSize: MainAxisSize.min,
+          children: group,
+        }),
+      ),
+  });
 }
