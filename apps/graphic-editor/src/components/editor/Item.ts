@@ -6,6 +6,7 @@ import {
   StatefulWidget,
   BoxDecoration,
   Border,
+  Flex,
 } from '@meursyphus/flitter';
 import { getEventManager, Event, EventManager } from '../../libs';
 import { View } from 'rune-ts';

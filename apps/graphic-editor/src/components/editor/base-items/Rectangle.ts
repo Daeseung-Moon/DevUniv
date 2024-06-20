@@ -32,12 +32,15 @@ class RectangleSettingView extends SettingView<{ width: number; height: number; 
   protected override onRender(): void {
     this.element().addEventListener('submit', (e) => {
       e.preventDefault();
-      const widthElement = this.element().querySelector('#width') as unknown as HTMLInputElement;
-      const heightElement = this.element().querySelector('#height') as unknown as HTMLInputElement;
-      const colorElement = this.element().querySelector('#color') as unknown as HTMLInputElement;
-      this.item.data.width = Number(widthElement.value);
-      this.item.data.height = Number(heightElement.value);
-      this.item.data.color = colorElement.value;
+
+      const formData = new FormData(this.element() as HTMLFormElement);
+      const width = formData.get('width') as string;
+      const height = formData.get('height') as string;
+      const color = formData.get('color') as string;
+
+      this.item.data.width = Number(width);
+      this.item.data.height = Number(height);
+      this.item.data.color = color;
       this.item.notify();
     });
   }
