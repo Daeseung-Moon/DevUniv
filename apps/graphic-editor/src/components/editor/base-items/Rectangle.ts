@@ -23,7 +23,7 @@ interface Props {
 
 export class Rectangle extends Item<Props> {
   constructor({
-    color = '#ADD8E6',
+    color = `#${Math.floor(Math.random() * 16777215).toString(16)}`,
     width = 100,
     height = 100,
     borderTopLeftRadius,

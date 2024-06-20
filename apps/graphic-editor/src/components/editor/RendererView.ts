@@ -4,11 +4,6 @@ import {
   AppRunner,
   StatefulWidget,
   State,
-  Row,
-  MainAxisSize,
-  Column,
-  Center,
-  CrossAxisAlignment,
   MultiChildRenderObjectWidget,
   MultiChildRenderObject,
   Size,
@@ -83,7 +78,7 @@ class Wrap extends MultiChildRenderObjectWidget {
   override createRenderObject(): RenderObject {
     return new RenderWrap();
   }
-  override updateRenderObject(renderObject: RenderWrap): void {
+  override updateRenderObject(): void {
     //
   }
 }
@@ -100,14 +95,13 @@ class RenderWrap extends MultiChildRenderObject {
       child.layout(this.constraints);
     });
 
-    const maxWidth = this.constraints.maxWidth;
-
     let currentX = 0;
     let currentY = 0;
     let maxHeightInRow = 0;
+    let maxWidth = 0;
 
     this.children.forEach((child) => {
-      if (currentX + child.size.width > maxWidth) {
+      if (currentX + child.size.width > this.constraints.maxWidth) {
         // 새로운 줄로 이동
         currentX = 0;
         currentY += maxHeightInRow;
@@ -124,14 +118,14 @@ class RenderWrap extends MultiChildRenderObject {
       if (child.size.height > maxHeightInRow) {
         maxHeightInRow = child.size.height;
       }
+
+      // 전체 컨테이너의 너비 업데이트
+      maxWidth = Math.max(maxWidth, currentX);
     });
 
     // 전체 컨테이너의 높이 설정
     this.size = new Size({
-      width: Math.min(
-        maxWidth,
-        this.children.reduce((acc, child) => acc + child.size.width, 0),
-      ),
+      width: maxWidth,
       height: currentY + maxHeightInRow,
     });
   }

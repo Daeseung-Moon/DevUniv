@@ -6,7 +6,6 @@ import {
   StatefulWidget,
   BoxDecoration,
   Border,
-  Flex,
 } from '@meursyphus/flitter';
 import { getEventManager, Event, EventManager } from '../../libs';
 import { View } from 'rune-ts';
@@ -109,31 +108,36 @@ class FocusableState extends State<Focusable> {
   override initState(): void {
     this._eventManager.on(FocusEvent, (e) => {
       if (e.detail !== this) {
-        this.setFocused(false);
+        setTimeout(() => {
+          this._blur();
+        }, 0);
       }
     });
 
-    /**
-     * 생성되면 바로 포커스
-     */
-    this.setFocused(true);
+    this._focus();
   }
 
   private _handleClick() {
-    this.setFocused(true);
+    this._focus();
+  }
+
+  private _focus() {
+    this._setFocused(true);
+    this._eventManager.emit(new FocusEvent(this));
     this.widget.onFocus?.();
   }
 
-  setFocused(focused: boolean) {
+  private _blur() {
+    this._setFocused(false);
+    this.widget.onBlur?.();
+  }
+
+  private _setFocused(focused: boolean) {
     if (this._focused === focused) {
       return;
     }
-    this.setState(() => {
-      this._focused = focused;
-      if (this._focused) {
-        this._eventManager.emit(new FocusEvent(this));
-      }
-    });
+    this._focused = focused;
+    this.setState(() => {});
   }
 
   override build() {
