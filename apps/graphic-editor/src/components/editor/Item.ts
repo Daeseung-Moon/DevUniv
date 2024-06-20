@@ -112,6 +112,11 @@ class FocusableState extends State<Focusable> {
         this.setFocused(false);
       }
     });
+
+    /**
+     * 생성되면 바로 포커스
+     */
+    this.setFocused(true);
   }
 
   private _handleClick() {
