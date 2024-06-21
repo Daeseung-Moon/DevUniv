@@ -68,13 +68,8 @@ class RendererState extends State<Renderer> {
 
   override initState(): void {
     this._eventManager.on(CreateItemEvent, (event) => {
-      return new Promise((resolve) => {
-        this.setState(() => {
-          this._items.push(event.detail);
-          setTimeout(() => {
-            resolve();
-          }, 0);
-        });
+      this.setState(() => {
+        this._items.push(event.detail);
       });
     });
   }
