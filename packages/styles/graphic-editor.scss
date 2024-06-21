@@ -90,4 +90,21 @@ html.graphic-editor {
     list-style: none;
     gap: 4px;
   }
+
+  .UndoRedoView {
+    display: flex;
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    padding: 8px;
+    border: 1px solid #999;
+    list-style: none;
+    gap: 4px;
+  }
+
+  .LayoutSettingView {
+    input {
+      display: inline;
+    }
+  }
 }

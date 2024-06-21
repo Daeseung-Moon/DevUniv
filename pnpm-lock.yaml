@@ -119,8 +119,8 @@ importers:
         specifier: ^0.28.1
         version: 0.28.1
       '@meursyphus/flitter':
-        specifier: 2.0.0-alpha.5
-        version: 2.0.0-alpha.5
+        specifier: 2.0.0-alpha.7
+        version: 2.0.0-alpha.7
       '@reduxjs/toolkit':
         specifier: ^2.2.5
         version: 2.2.5
@@ -420,8 +420,8 @@ packages:
   '@leichtgewicht/ip-codec@2.0.5':
     resolution: {integrity: sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==}
 
-  '@meursyphus/flitter@2.0.0-alpha.5':
-    resolution: {integrity: sha512-J1pZvOXIXUThJATglb9vyG7yblOVrkMEG/LqxzDRx/3bSNHdEqZ9ujiX+pCM10Yyjk8KOZgvuHR/3tZNE+iqwQ==}
+  '@meursyphus/flitter@2.0.0-alpha.7':
+    resolution: {integrity: sha512-I+JaN64JPcrqv26fs6aGy6asG6ruvLEmWpHgP0igPBMIhZYF9K8tlocIV5LVBTWV5Fp+JQ72QNUD0CHSa+gTsQ==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -3086,7 +3086,7 @@ snapshots:
 
   '@leichtgewicht/ip-codec@2.0.5': {}
 
-  '@meursyphus/flitter@2.0.0-alpha.5':
+  '@meursyphus/flitter@2.0.0-alpha.7':
     dependencies:
       color-rgba: 3.0.0
       popmotion: 11.0.5
