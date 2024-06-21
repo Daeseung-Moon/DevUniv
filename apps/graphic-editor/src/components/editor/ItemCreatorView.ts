@@ -1,23 +1,15 @@
 import { Item } from './Item';
-import { Event, getEventManager } from '../../libs/EventManager';
+import { Event, getEventManager } from '../../event/EventManager';
 import { View, html, type Html } from 'rune-ts';
-import { Paragraph, Rectangle } from './base-items';
+import { getItemMenuFactory, type MenuOption } from './ItemMenuFactory';
+import { SelectItemEvent } from '../../event';
 
 export class CreateItemEvent extends Event<Item> {}
 
-interface MenuOption {
-  generateItem: () => Item;
-  label: string;
-}
-
-const defaultOptions: MenuOption[] = [
-  { generateItem: () => new Rectangle(), label: 'Rectangle' },
-  { generateItem: () => new Paragraph(), label: 'Paragraph' },
-];
-
-export class ItemCreateMenuView extends View<MenuOption[]> {
-  constructor(options: MenuOption[] = []) {
-    super([...defaultOptions, ...options]);
+export class ItemCreateMenuView extends View {
+  private _itemMenuFactory = getItemMenuFactory();
+  constructor() {
+    super({});
   }
 
   protected override onRender(): void {}
@@ -25,7 +17,9 @@ export class ItemCreateMenuView extends View<MenuOption[]> {
   protected override template(): Html {
     return html`
       <ul>
-        ${this.data.map((item) => html`<li>${new ItemCreateMenuOptionView(item)}</li>`)}
+        ${this._itemMenuFactory.options.map(
+          (item) => html`<li>${new ItemCreateMenuOptionView(item)}</li>`,
+        )}
       </ul>
     `;
   }
@@ -35,8 +29,15 @@ class ItemCreateMenuOptionView extends View<MenuOption> {
   private _eventManager = getEventManager();
   protected override onRender(): void {
     this.element().addEventListener('click', () => {
-      this._eventManager.emit(new CreateItemEvent(this.data.generateItem()));
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      this.handleClick();
     });
+  }
+
+  async handleClick() {
+    const widget = this.data.generateItem();
+    await this._eventManager.emit(new CreateItemEvent(widget));
+    await this._eventManager.emit(new SelectItemEvent(widget));
   }
 
   protected override template(data: MenuOption): Html {

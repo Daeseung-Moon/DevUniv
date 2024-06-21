@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-type EventListener<EVENT extends Event<T>, T> = (event: EVENT) => void;
+type EventListener<EVENT extends Event<T>, T> = (event: EVENT) => void | Promise<void>;
 
 let sigleton: EventManager | null = null;
 
@@ -45,9 +45,12 @@ export class EventManager {
     }
   }
 
-  emit<EVENT extends Event<T>, T>(event: EVENT) {
+  async emit<EVENT extends Event<T>, T>(event: EVENT): Promise<void> {
     const listeners = this._eventMap.get(event.constructor as any) as EventListener<EVENT, T>[];
-    listeners.forEach((listener) => listener(event));
+    if (listeners) {
+      const promises = listeners.map((listener) => listener(event));
+      await Promise.all(promises);
+    }
   }
 
   /**

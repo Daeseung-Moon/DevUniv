@@ -13,8 +13,19 @@ import {
   Alignment,
   EdgeInsets,
 } from '@meursyphus/flitter';
-import { EventManager, getEventManager } from '../../libs/EventManager';
+import { EventManager, getEventManager } from '../../event/EventManager';
 import { CreateItemEvent, ItemCreateMenuView } from './ItemCreatorView';
+import { Paragraph, Rectangle } from './base-items';
+import { getItemMenuFactory, type MenuOption } from './ItemMenuFactory';
+
+const defaultOptions: MenuOption[] = [
+  { generateItem: () => new Rectangle(), label: 'Rectangle' },
+  { generateItem: () => new Paragraph(), label: 'Paragraph' },
+];
+const itemMenuFactory = getItemMenuFactory();
+defaultOptions.forEach((option) => {
+  itemMenuFactory.register(option);
+});
 
 export class RendererView extends View {
   private app!: AppRunner;
@@ -57,8 +68,13 @@ class RendererState extends State<Renderer> {
 
   override initState(): void {
     this._eventManager.on(CreateItemEvent, (event) => {
-      this.setState(() => {
-        this._items.push(event.detail);
+      return new Promise((resolve) => {
+        this.setState(() => {
+          this._items.push(event.detail);
+          setTimeout(() => {
+            resolve();
+          }, 0);
+        });
       });
     });
   }

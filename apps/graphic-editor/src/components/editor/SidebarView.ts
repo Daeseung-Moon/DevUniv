@@ -1,6 +1,6 @@
 import { View, html } from 'rune-ts';
 
-import { getEventManager, EventManager } from '../../libs';
+import { getEventManager, EventManager } from '../../event';
 import { ShowSettingViewEvent } from './Item';
 
 export class SidebarView extends View {

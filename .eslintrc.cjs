@@ -39,5 +39,6 @@ module.exports = {
     '@typescript-eslint/no-base-to-string': ['off'],
     '@typescript-eslint/no-redundant-type-constituents': ['off'],
     semi: 'error',
+    '@typescript-eslint/no-floating-promises': ['off'],
   },
 };
