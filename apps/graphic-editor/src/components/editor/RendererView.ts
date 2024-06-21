@@ -36,8 +36,8 @@ export class RendererView extends View {
   }
 
   protected override onRender(): void {
-    const svg = this.element().getElementsByTagName('svg')[0];
-    this.app = new AppRunner({ view: svg });
+    const view = this.element().getElementsByTagName('canvas')[0];
+    this.app = new AppRunner({ view });
     this.app.onMount({
       resizeTarget: this.element(),
     });
@@ -47,7 +47,7 @@ export class RendererView extends View {
     return html`
       <div>
         ${new ItemCreateMenuView()}
-        <svg style="width: 100%; height: 100%;" />
+        <canvas style="width: 100%; height: 100%;" />
       </div>
     `;
   }
