@@ -4,6 +4,9 @@ type EventListener<EVENT extends Event<T>, T> = (event: EVENT) => void;
 
 let sigleton: EventManager | null = null;
 
+/**
+ * @deprecated 전역 이벤트 매니저를 사용하지 말고 리덕스를 활용할 것.
+ */
 export function getEventManager() {
   if (!sigleton) {
     sigleton = new EventManager();

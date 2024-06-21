@@ -1,11 +1,8 @@
-import { Item } from './Item';
-import { Event, getEventManager } from '../../event/EventManager';
 import { View, html, type Html } from 'rune-ts';
 import { getItemMenuFactory, type MenuOption } from './ItemMenuFactory';
 import { store } from '../../store';
 import { selectItem } from '../../store/features/select-item';
-
-export class CreateItemEvent extends Event<Item> {}
+import { addItem } from '../../store/features/create-item';
 
 export class ItemCreateMenuView extends View {
   private _itemMenuFactory = getItemMenuFactory();
@@ -27,7 +24,6 @@ export class ItemCreateMenuView extends View {
 }
 
 class ItemCreateMenuOptionView extends View<MenuOption> {
-  private _eventManager = getEventManager();
   protected override onRender(): void {
     this.element().addEventListener('click', () => {
       this.handleClick();
@@ -36,7 +32,7 @@ class ItemCreateMenuOptionView extends View<MenuOption> {
 
   handleClick() {
     const widget = this.data.generateItem();
-    this._eventManager.emit(new CreateItemEvent(widget));
+    store.dispatch(addItem(widget));
     store.dispatch(selectItem(widget));
   }
 

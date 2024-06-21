@@ -13,14 +13,15 @@ import {
   Alignment,
   EdgeInsets,
 } from '@meursyphus/flitter';
-import { EventManager, getEventManager } from '../../event/EventManager';
-import { CreateItemEvent, ItemCreateMenuView } from './ItemCreatorView';
-import { Paragraph, Rectangle } from './base-items';
+import { ItemCreateMenuView } from './ItemCreatorView';
+import { Paragraph, Rectangle, Layout } from './base-items';
 import { getItemMenuFactory, type MenuOption } from './ItemMenuFactory';
+import { store } from '../../store';
 
 const defaultOptions: MenuOption[] = [
   { generateItem: () => new Rectangle(), label: 'Rectangle' },
   { generateItem: () => new Paragraph(), label: 'Paragraph' },
+  { generateItem: () => new Layout(), label: 'Layout' },
 ];
 const itemMenuFactory = getItemMenuFactory();
 defaultOptions.forEach((option) => {
@@ -64,12 +65,14 @@ class Renderer extends StatefulWidget {
 
 class RendererState extends State<Renderer> {
   private _items: Widget[] = [];
-  private _eventManager: EventManager = getEventManager();
 
   override initState(): void {
-    this._eventManager.on(CreateItemEvent, (event) => {
+    /**
+     * @todo: useSelectors를 구현해야함.
+     */
+    store.subscribe(() => {
       this.setState(() => {
-        this._items.push(event.detail);
+        this._items = store.getState().createItem.items;
       });
     });
   }

@@ -82,11 +82,27 @@ class ParagraphSettingView extends SettingView<ParagraphData> {
         <fieldset>
           <label for="fontFamily">Font Family</label>
           <select id="fontFamily" name="fontFamily">
-            <option value="Arial">Arial</option>
-            <option value="Verdana">Verdana</option>
-            <option value="Times New Roman">Times New Roman</option>
-            <option value="Georgia">Georgia</option>
-            <option value="Courier New">Courier New</option>
+            <option value="Arial" ${this.item.data.fontFamily === 'Arial' ? 'selected' : ''}>
+              Arial
+            </option>
+            <option value="Verdana" ${this.item.data.fontFamily === 'Verdana' ? 'selected' : ''}>
+              Verdana
+            </option>
+            <option
+              value="Times New Roman"
+              ${this.item.data.fontFamily === 'Times New Roman' ? 'selected' : ''}
+            >
+              Times New Roman
+            </option>
+            <option value="Georgia" ${this.item.data.fontFamily === 'Georgia' ? 'selected' : ''}>
+              Georgia
+            </option>
+            <option
+              value="Courier New"
+              ${this.item.data.fontFamily === 'Courier New' ? 'selected' : ''}
+            >
+              Courier New
+            </option>
           </select>
         </fieldset>
 

@@ -86,15 +86,21 @@ export class ItemState<DATA extends object = object> extends State<Item<DATA>> {
 
   override build() {
     return GestureDetector({
-      onClick: () => {
+      onMouseDown: (e) => {
         store.dispatch(selectItem(this.widget));
+        e.stopPropagation();
       },
       child: Container({
         decoration: this._selected
           ? new BoxDecoration({
               border: Border.all({ color: 'red', width: 2 }),
             })
-          : undefined,
+          : /**
+             * @todo: 동적으로 생기는 BoxDecoration이 있어서 에러가 나는 것으로 보임, 나중에 고치자!~
+             */
+            new BoxDecoration({
+              border: Border.all({ color: 'transparent', width: 0 }),
+            }),
         child: this.widget.build(this.data),
       }),
     });
