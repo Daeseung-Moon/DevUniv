@@ -1,11 +1,11 @@
 import { View, html, type Html } from 'rune-ts';
-import { getItemMenuFactory, type MenuOption } from './ItemMenuFactory';
+import { getItemMenuRegister, type MenuOption } from './ItemMenuRegister';
 import { store } from '../../store';
 import { selectItem } from '../../store/features/select-item';
 import { addItem } from '../../store/features/create-item';
 
 export class ItemCreateMenuView extends View {
-  private _itemMenuFactory = getItemMenuFactory();
+  private _itemMenuFactory = getItemMenuRegister();
   constructor() {
     super({});
   }

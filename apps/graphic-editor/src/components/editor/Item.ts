@@ -96,7 +96,7 @@ export class ItemState<DATA extends object = object> extends State<Item<DATA>> {
               border: Border.all({ color: 'red', width: 2 }),
             })
           : /**
-             * @todo: 동적으로 생기는 BoxDecoration이 있어서 에러가 나는 것으로 보임, 나중에 고치자!~
+             * @todo: 동적으로 생기는 BoxDecoration이 있어서 에러가 나는 것으로 보임, 나중에 고치기..
              */
             new BoxDecoration({
               border: Border.all({ color: 'transparent', width: 0 }),

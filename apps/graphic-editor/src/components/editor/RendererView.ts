@@ -15,7 +15,7 @@ import {
 } from '@meursyphus/flitter';
 import { ItemCreateMenuView } from './ItemCreatorView';
 import { Paragraph, Rectangle, Layout } from './base-items';
-import { getItemMenuFactory, type MenuOption } from './ItemMenuFactory';
+import { getItemMenuRegister, type MenuOption } from './ItemMenuRegister';
 import { store } from '../../store';
 
 const defaultOptions: MenuOption[] = [
@@ -23,7 +23,7 @@ const defaultOptions: MenuOption[] = [
   { generateItem: () => new Paragraph(), label: 'Paragraph' },
   { generateItem: () => new Layout(), label: 'Layout' },
 ];
-const itemMenuFactory = getItemMenuFactory();
+const itemMenuFactory = getItemMenuRegister();
 defaultOptions.forEach((option) => {
   itemMenuFactory.register(option);
 });
@@ -36,7 +36,7 @@ export class RendererView extends View {
   }
 
   protected override onRender(): void {
-    const view = this.element().getElementsByTagName('canvas')[0];
+    const view = this.element().getElementsByTagName('svg')[0];
     this.app = new AppRunner({ view });
     this.app.onMount({
       resizeTarget: this.element(),
@@ -47,7 +47,7 @@ export class RendererView extends View {
     return html`
       <div>
         ${new ItemCreateMenuView()}
-        <canvas style="width: 100%; height: 100%;" />
+        <svg style="width: 100%; height: 100%;" />
       </div>
     `;
   }

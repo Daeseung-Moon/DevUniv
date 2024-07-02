@@ -5,7 +5,7 @@ export interface MenuOption {
   label: string;
 }
 
-class ItemMenuFactory {
+class ItemMenuRegister {
   private _options: MenuOption[] = [];
 
   register(option: MenuOption) {
@@ -21,11 +21,11 @@ class ItemMenuFactory {
   }
 }
 
-let itemMenuFactory: ItemMenuFactory | null = null;
+let itemMenuFactory: ItemMenuRegister | null = null;
 
-export function getItemMenuFactory() {
+export function getItemMenuRegister() {
   if (!itemMenuFactory) {
-    itemMenuFactory = new ItemMenuFactory();
+    itemMenuFactory = new ItemMenuRegister();
   }
   return itemMenuFactory;
 }

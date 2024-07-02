@@ -1,4 +1,4 @@
-import { Widget, Text, TextStyle } from '@meursyphus/flitter';
+import { Widget, Text, TextStyle, TextField } from '@meursyphus/flitter';
 import { Item, ItemState, SettingView } from '../Item';
 import { View, html, type Html } from 'rune-ts';
 
@@ -22,13 +22,17 @@ export class Paragraph extends Item<ParagraphData> {
   }
 
   override build(data: ParagraphData): Widget {
-    return Text(data.text, {
+    return TextField(data.text, {
+      width: 300,
       style: new TextStyle({
         color: data.color,
         fontSize: data.fontSize,
         fontWeight: data.fontWeight,
         fontFamily: data.fontFamily,
       }),
+      onChanged: (value) => {
+        this.data.text = value;
+      },
     });
   }
 

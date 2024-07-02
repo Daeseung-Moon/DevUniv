@@ -11,7 +11,7 @@ import {
 } from '@meursyphus/flitter';
 import { Item, ItemState, SettingView } from '../Item';
 import { View, html, type Html, on } from 'rune-ts';
-import { getItemMenuFactory, type MenuOption } from '../ItemMenuFactory';
+import { getItemMenuRegister, type MenuOption } from '../ItemMenuRegister';
 
 interface Props {
   direction: Axis;
@@ -58,7 +58,7 @@ export class Layout extends Item<Props> {
 }
 
 class LayoutSettingView extends SettingView<Props> {
-  private _itemMenuFactory = getItemMenuFactory();
+  private _itemMenuFactory = getItemMenuRegister();
 
   @on('submit')
   _handleSubmit(e: SubmitEvent) {
