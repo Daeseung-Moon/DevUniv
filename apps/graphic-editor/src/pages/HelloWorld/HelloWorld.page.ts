@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-import { View, html } from 'rune-ts';
+import { Page, View, html } from 'rune-ts';
 import {
   Widget,
   AppRunner,
@@ -28,7 +28,14 @@ import {
   RichText,
   Positioned,
   SizedBox,
+  Center,
 } from '@meursyphus/flitter';
+
+export class HelloWorldPage extends Page<object> {
+  override template() {
+    return html`<div>${new RendererView()}</div>`;
+  }
+}
 
 const browser = true;
 
@@ -40,7 +47,7 @@ export class RendererView extends View {
   }
 
   protected override onRender(): void {
-    const view = this.element().children[0] as SVGSVGElement | HTMLCanvasElement;
+    const view = this.element().children[0] as HTMLCanvasElement | SVGSVGElement;
     this.app = new AppRunner({ view });
     this.app.onMount({
       resizeTarget: this.element(),
@@ -49,7 +56,7 @@ export class RendererView extends View {
   }
   protected override template() {
     return html`
-      <div>
+      <div style="width: 500px; height: 500px;">
         <canvas style="width: 100%; height: 100%;" />
       </div>
     `;
@@ -57,7 +64,18 @@ export class RendererView extends View {
 }
 
 function App() {
-  return Text('asdf', {});
+  return Center({
+    child: Container({
+      width: 300,
+      child: new TextField('', {
+        padding: EdgeInsets.all(6),
+        style: new TextStyle({
+          fontSize: 16,
+          fontFamily: 'sans-serif',
+        }),
+      }),
+    }),
+  });
 }
 
 type TextFieldProps = {
@@ -778,7 +796,16 @@ class NativeInput {
 
   #createElement() {
     const el = document.createElement('textarea');
-    el.setAttribute('style', 'position: absolute; opacity: 0; height: 0; width: 0;');
+    // el.setAttribute('style', 'position: absolute; opacity: 0; height: 0; width: 0;');
+    /**
+     * @todo: textfield의 너비에 맞게 조절할 것!(padding 고려), 그리고 폰트 크기와 스타일도 동기화 시켜야함!
+     * texfield의 width에 맞게 설정되어야,
+     * keyboard의 caret 위치 조정이 올바르게 설정됨
+     */
+    el.setAttribute(
+      'style',
+      'padding: 6px; position: absolute; left: 100px; top: 400px; height: 300px; width: 288px; font-size: 16px; font-family: sans-serif;',
+    );
 
     el.addEventListener('input', (e: Event) => {
       const inputEvent = e as InputEvent;

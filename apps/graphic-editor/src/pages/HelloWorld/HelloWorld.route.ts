@@ -1,5 +1,5 @@
-import { GraphicEditor } from './HelloWorld.page';
+import { HelloWorldPage } from './HelloWorld.page';
 
 export const HelloWorldRoute = {
-  '/': GraphicEditor,
+  '/': HelloWorldPage,
 };
