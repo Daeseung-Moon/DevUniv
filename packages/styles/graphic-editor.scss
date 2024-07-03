@@ -17,8 +17,7 @@ html.graphic-editor {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #121212;
-    color: white;
+    color: black;
     font-size: 18px;
   }
 
@@ -33,10 +32,8 @@ html.graphic-editor {
   }
 
   .RendererView {
-    position: relative;
-    width: 800px;
-    height: 800px;
-    border: 1px solid #999;
+    width: 100%;
+    height: 100%;
   }
 
   .SidebarView {
